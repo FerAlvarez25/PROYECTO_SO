@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Sistemas Operativos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>SISTEMA DE MONITOREO Y DIAGNÓSTICO</h1>
+            <p>Arquitectura de Procesos, Concurrencia y Sincronización</p>
+        </header>
+
+        
+        <section class="card master-controls">
+            <button class="btn-danger" onclick="trigger('all')">GENERAR TODOS LOS PROBLEMAS</button>
+            <button class="btn-success" onclick="trigger('fix-all')">CORREGIR TODOS</button>
+            <button class="btn-warning" onclick="trigger('stop-all')">DETENER TODOS (Emergencia)</button>
+        </section>
+
+        <main class="grid-layout">
+            
+            <div class="left-col">
+                <section class="card">
+                    <h2>Métricas Físicas (psutil)</h2>
+                    <div class="meters">
+                        <div>CPU Global: <strong id="val-cpu">0%</strong></div>
+                        <div>RAM Global: <strong id="val-mem">0%</strong></div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Árbol de Procesos (Jerarquía SO)</h2>
+                    <pre id="process-tree" class="console-output">Cargando pstree...</pre>
+                </section>
+
+                <section class="card">
+                    <h2>Eventos del Sistema</h2>
+                    <pre id="events-log" class="console-output log-output"></pre>
+                </section>
+            </div>
+
+            
+            <div class="right-col">
+                <section class="card">
+                    <h2>Estado Analítico de Experimentos</h2>
+                    <table class="analytical-table">
+                        <thead>
+                            <tr>
+                                <th>Problema Teórico</th>
+                                <th>Estado Actual</th>
+                                <th>Antes (Fallo / Carga)</th>
+                                <th>Después (Solución / Limpieza)</th>
+                                <th>Mecanismo SO Aplicado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="st-cpu-prob">Cargando...</td>
+                                <td id="st-cpu-status">-</td>
+                                <td id="st-cpu-antes">-</td>
+                                <td id="st-cpu-despues">-</td>
+                                <td id="st-cpu-mec">-</td>
+                            </tr>
+                            <tr>
+                                <td id="st-memory-prob">-</td>
+                                <td id="st-memory-status">-</td>
+                                <td id="st-memory-antes">-</td>
+                                <td id="st-memory-despues">-</td>
+                                <td id="st-memory-mec">-</td>
+                            </tr>
+                            <tr>
+                                <td id="st-race-prob">-</td>
+                                <td id="st-race-status">-</td>
+                                <td id="st-race-antes">-</td>
+                                <td id="st-race-despues">-</td>
+                                <td id="st-race-mec">-</td>
+                            </tr>
+                            <tr>
+                                <td id="st-deadlock-prob">-</td>
+                                <td id="st-deadlock-status">-</td>
+                                <td id="st-deadlock-antes">-</td>
+                                <td id="st-deadlock-despues">-</td>
+                                <td id="st-deadlock-mec">-</td>
+                            </tr>
+                            <tr>
+                                <td id="st-producer_consumer-prob">-</td>
+                                <td id="st-producer_consumer-status">-</td>
+                                <td id="st-producer_consumer-antes">-</td>
+                                <td id="st-producer_consumer-despues">-</td>
+                                <td id="st-producer_consumer-mec">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </main>
+
+        
+        <section class="card master-controls" style="margin-top: 20px; text-align: left;">
+            <h2>Registro Detallado: Deadlock (Colisión de Hilos)</h2>
+            <pre id="deadlock-logs-window" class="console-output log-output"
+                style="height: 250px; background-color: #0d1117; color: #ff7b72; font-family: monospace; padding: 10px; overflow-y: auto;">Esperando simulación de Deadlock...</pre>
+        </section>
+
+        <section class="card master-controls" style="margin-top: 20px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h2 style="margin: 0;">Registro Detallado: Encriptación de Métricas (Productor-Consumidor)</h2>
+                <button class="btn-success" onclick="trigger('producer-consumer')">Activar Módulo de Encriptación</button>
+            </div>
+            <pre id="producer-logs-window" class="console-output log-output"
+                style="height: 250px; background-color: #0d1117; color: #79c0ff; font-family: monospace; padding: 10px; overflow-y: auto;">Esperando módulo de métricas...</pre>
+        </section>
+
+    </div>
+    <script src="/static/app.js?v=3"></script>
+</body>
+
+</html>
